@@ -65,7 +65,7 @@ const registerUser = async (req, res) => {
 
     if (doctor) {
       try {
-        const exsitingDoctorEmail = await User.findOne({ email });
+        const exsitingDoctorEmail = await Doctor.findOne({ email });
         if (exsitingDoctorEmail) {
           return res.status(400).json("Email already exists");
         }
@@ -132,6 +132,9 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ phoneNo });
     if (!user) {
       return res.status(400).send("User not found");
+    }
+    if (user.isVerified === false) {
+      return res.status(400).json({ message: "User not verified", data: user });
     }
 
     if (password === user.password) {

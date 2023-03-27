@@ -20,6 +20,7 @@ const Home = ({ navigation, route }) => {
   const [username, setUsername] = useState("");
   const userId = route.params.userId;
 
+
   useEffect(() => {
     axios
       .get("http://192.168.100.22:5000/medicines")

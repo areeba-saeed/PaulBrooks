@@ -41,4 +41,15 @@ const updateDoctor = async (req, res) => {
   }
 };
 
-module.exports = { getDoctor, getDoctors, updateDoctor };
+const deleteDoctor = async (req, res) => {
+  const id = req.params.id;
+  await Doctor.findByIdAndDelete(id)
+    .then(() => {
+      return Doctor.find();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+module.exports = { getDoctor, getDoctors, updateDoctor, deleteDoctor };

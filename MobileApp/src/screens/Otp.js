@@ -14,7 +14,6 @@ const Otp = ({ navigation, route }) => {
   const [otp, setotp] = useState();
   const [errorMessageshow, setErrorMessageShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [data, setData] = useState([]);
   const phoneNo = route.params.phoneNo;
   const userId = route.params.userId;
   const [seconds, setSeconds] = useState(0);

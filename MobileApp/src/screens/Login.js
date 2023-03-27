@@ -18,6 +18,7 @@ const Login = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [errorMessageshow, setErrorMessageShow] = useState();
+  const [userId, setuserId] = useState();
 
   const handleLogin = () => {
     const users = {
@@ -46,8 +47,9 @@ const Login = ({ navigation }) => {
         if (error.response) {
           // The request was made and the server responded with a status code
           setErrorMessage(true);
-          setErrorMessageShow(error.response.data);
-          console.log(error.response.data);
+          setErrorMessageShow(error.response.data.message);
+          setuserId(error.response.data.data.userId);
+          console.log(error.response.data.data);
           // that falls out of the range of 2xx
         } else if (error.request) {
           // The request was made but no response was received
@@ -76,6 +78,21 @@ const Login = ({ navigation }) => {
         <Text style={{ color: "red", marginBottom: 10 }}>
           {errorMessageshow}
         </Text>
+      ) : (
+        ""
+      )}
+
+      {errorMessageshow === "User not verified" ? (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Otp", {
+              phoneNo: phoneNo,
+              userId: userId,
+              sign: true,
+            });
+          }}>
+          <Text>Verify</Text>
+        </TouchableOpacity>
       ) : (
         ""
       )}
